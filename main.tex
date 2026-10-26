@@ -1332,6 +1332,561 @@ from the denominator.
 This is another important
 application of Feynman's technique.
 
+% -------------------------------------------------
+\subsection{Gaussian--Cosine Integral:
+A Cauchy Problem}
+% -------------------------------------------------
+
+In our previous examples, differentiating
+under the integral sign either simplified
+the integrand directly or produced an
+elementary expression for the derivative
+of the parametric integral.
+
+There are, however, situations in which
+differentiation with respect to a parameter
+produces another integral that is not
+immediately recognizable.
+
+In such cases, a familiar technique
+such as integration by parts may allow
+us to express the new integral in terms
+of the original parametric integral.
+
+This leads to an interesting possibility:
+instead of evaluating the integral
+directly, we may derive an ordinary
+differential equation satisfied by it.
+
+If the value of the parametric integral
+is known at a convenient parameter,
+we obtain an initial value problem,
+also called a \emph{Cauchy problem}.
+
+We can then determine the original
+integral by solving the resulting
+differential equation.
+
+To illustrate this connection between
+Feynman's technique and ordinary
+differential equations, consider
+
+\begin{equation}
+    I(\alpha)
+    =
+    \int_0^\infty
+    e^{-x^2}\cos(\alpha x)\,dx,
+    \qquad \alpha\in\mathbb{R}.
+    \label{eq:cauchy_integral_def}
+\end{equation}
+
+This integral is closely related
+to the Fourier transform of a
+Gaussian function, an important
+object in probability theory,
+signal processing, and mathematical
+physics.
+
+Our objective is to obtain an
+explicit expression for $I(\alpha)$.
+
+\subsubsection*{Step 1: Differentiating
+under the integral sign}
+
+We begin by applying Feynman's
+technique.
+
+Differentiating with respect
+to $\alpha$, we obtain
+
+\begin{align}
+    I'(\alpha)
+    &=
+    \frac{d}{d\alpha}
+    \int_0^\infty
+    e^{-x^2}\cos(\alpha x)\,dx
+    \notag\\
+    &=
+    \int_0^\infty
+    \frac{\partial}{\partial\alpha}
+    \left(
+    e^{-x^2}\cos(\alpha x)
+    \right)\,dx
+    \notag\\
+    &=
+    -\int_0^\infty
+    x e^{-x^2}\sin(\alpha x)\,dx.
+    \label{eq:cauchy_derivative}
+\end{align}
+
+Notice that differentiation
+has produced a factor of $x$,
+together with a sine function.
+
+Unlike our earlier Gaussian
+examples, the resulting integral
+is not immediately elementary.
+
+However, we should recognize
+an important relationship:
+
+\begin{equation}
+    \frac{d}{dx}e^{-x^2}
+    =
+    -2xe^{-x^2}.
+    \label{eq:cauchy_gaussian_derivative}
+\end{equation}
+
+Therefore,
+
+\[
+    xe^{-x^2}
+    =
+    -\frac12
+    \frac{d}{dx}e^{-x^2}.
+\]
+
+This suggests applying
+integration by parts to
+the right-hand side of
+\eqref{eq:cauchy_derivative}.
+
+As we will see, this
+will allow us to recover
+the original integral
+$I(\alpha)$.
+
+\subsubsection*{Step 2: Applying
+integration by parts}
+
+For convenience, let
+
+\begin{equation}
+    K(\alpha)
+    =
+    \int_0^\infty
+    xe^{-x^2}\sin(\alpha x)\,dx.
+\end{equation}
+
+Then equation
+\eqref{eq:cauchy_derivative}
+becomes
+
+\[
+    I'(\alpha)=-K(\alpha).
+\]
+
+To evaluate $K(\alpha)$,
+we use integration by parts.
+
+Choose
+
+\[
+    u=\sin(\alpha x),
+    \qquad
+    dv=xe^{-x^2}\,dx.
+\]
+
+Then
+
+\[
+    du=\alpha\cos(\alpha x)\,dx
+\]
+
+and
+
+\[
+    v=-\frac12 e^{-x^2}.
+\]
+
+Recall the integration
+by parts formula
+
+\[
+    \int u\,dv
+    =
+    uv-\int v\,du.
+\]
+
+Applying this formula,
+we obtain
+
+\begin{align}
+    K(\alpha)
+    &=
+    \left[
+    -\frac12 e^{-x^2}
+    \sin(\alpha x)
+    \right]_0^\infty
+    \notag\\
+    &\quad+
+    \frac{\alpha}{2}
+    \int_0^\infty
+    e^{-x^2}\cos(\alpha x)\,dx.
+    \label{eq:cauchy_ibp}
+\end{align}
+
+Let us examine the boundary term.
+
+At $x=0$, we have
+
+\[
+    e^{-0^2}\sin(\alpha\cdot0)=0.
+\]
+
+At infinity, observe that
+
+\[
+    \left|
+    e^{-x^2}\sin(\alpha x)
+    \right|
+    \leq e^{-x^2}.
+\]
+
+Since
+
+\[
+    \lim_{x\to\infty}e^{-x^2}=0,
+\]
+
+the boundary term vanishes
+at infinity as well.
+
+Consequently,
+
+\begin{equation}
+    K(\alpha)
+    =
+    \frac{\alpha}{2}
+    \int_0^\infty
+    e^{-x^2}\cos(\alpha x)\,dx.
+\end{equation}
+
+But the integral on the
+right-hand side is precisely
+our original parametric integral
+$I(\alpha)$.
+
+Thus,
+
+\begin{equation}
+    K(\alpha)
+    =
+    \frac{\alpha}{2}I(\alpha).
+\end{equation}
+
+Recalling that
+
+\[
+    I'(\alpha)=-K(\alpha),
+\]
+
+we finally obtain
+
+\begin{equation}
+    \boxed{
+    I'(\alpha)
+    =
+    -\frac{\alpha}{2}I(\alpha).
+    }
+    \label{eq:cauchy_ode}
+\end{equation}
+
+This is the crucial
+observation.
+
+By combining differentiation
+under the integral sign
+with integration by parts,
+we have transformed the
+original integral into a
+first-order linear
+homogeneous differential
+equation.
+
+Unlike the previous examples,
+the derivative $I'(\alpha)$
+is now expressed in terms
+of $I(\alpha)$ itself.
+
+\subsubsection*{Step 3: Formulating
+the Cauchy problem}
+
+The differential equation
+\eqref{eq:cauchy_ode}
+can be written as
+
+\begin{equation}
+    I'(\alpha)
+    +
+    \frac{\alpha}{2}I(\alpha)=0.
+\end{equation}
+
+To determine a unique solution,
+we need an initial condition.
+
+A natural choice is
+$\alpha=0$, because the
+cosine term becomes $1$.
+
+Indeed, returning to
+\eqref{eq:cauchy_integral_def},
+
+\begin{align}
+    I(0)
+    &=
+    \int_0^\infty
+    e^{-x^2}\cos(0)\,dx
+    \notag\\
+    &=
+    \int_0^\infty e^{-x^2}\,dx.
+\end{align}
+
+But this is the standard
+Gaussian integral.
+
+Recall from
+\eqref{eq:half_gaussian}
+that
+
+\[
+    \int_0^\infty e^{-x^2}\,dx
+    =
+    \frac{\sqrt{\pi}}{2}.
+\]
+
+Therefore,
+
+\begin{equation}
+    \boxed{
+    I(0)=\frac{\sqrt{\pi}}{2}.
+    }
+    \label{eq:cauchy_initial_condition}
+\end{equation}
+
+Combining the differential
+equation with this initial
+condition, we obtain
+
+\begin{equation}
+    \boxed{
+    \begin{cases}
+    I'(\alpha)+\dfrac{\alpha}{2}I(\alpha)=0,
+    \\[8pt]
+    I(0)=\dfrac{\sqrt{\pi}}{2}.
+    \end{cases}
+    }
+    \label{eq:cauchy_ivp}
+\end{equation}
+
+This is a Cauchy problem
+for a first-order linear
+ordinary differential equation.
+
+Notice that we have
+not evaluated the original
+integral directly.
+
+Instead, Feynman's technique
+has allowed us to formulate
+a differential equation
+whose solution will give
+the value of the integral
+for every real $\alpha$.
+
+\subsubsection*{Step 4: Solving
+the Cauchy problem}
+
+We now solve
+
+\begin{equation}
+    I'(\alpha)
+    +
+    \frac{\alpha}{2}I(\alpha)=0.
+\end{equation}
+
+This is a first-order linear
+homogeneous differential
+equation.
+
+We will use the method
+of integrating factors.
+
+Recall that an equation
+of the form
+
+\[
+    y'(t)+p(t)y(t)=0
+\]
+
+has integrating factor
+
+\[
+    \mu(t)
+    =
+    e^{\int p(t)\,dt}.
+\]
+
+In our problem,
+
+\[
+    p(\alpha)=\frac{\alpha}{2}.
+\]
+
+Therefore, we choose
+
+\begin{equation}
+    \mu(\alpha)
+    =
+    e^{\alpha^2/4}.
+    \label{eq:cauchy_integrating_factor}
+\end{equation}
+
+Multiplying the
+differential equation
+by $\mu(\alpha)$ gives
+
+\begin{equation}
+    e^{\alpha^2/4}I'(\alpha)
+    +
+    \frac{\alpha}{2}
+    e^{\alpha^2/4}I(\alpha)
+    =
+    0.
+\end{equation}
+
+Now observe that
+
+\[
+    \frac{d}{d\alpha}
+    e^{\alpha^2/4}
+    =
+    \frac{\alpha}{2}
+    e^{\alpha^2/4}.
+\]
+
+Thus, by the product rule,
+
+\begin{align}
+    &\frac{d}{d\alpha}
+    \left(
+    e^{\alpha^2/4}I(\alpha)
+    \right)
+    \notag\\
+    &=
+    e^{\alpha^2/4}I'(\alpha)
+    +
+    \frac{\alpha}{2}
+    e^{\alpha^2/4}I(\alpha).
+\end{align}
+
+Consequently, our differential
+equation becomes
+
+\begin{equation}
+    \frac{d}{d\alpha}
+    \left(
+    e^{\alpha^2/4}I(\alpha)
+    \right)
+    =
+    0.
+\end{equation}
+
+A function whose derivative
+vanishes throughout an interval
+must be constant on that interval.
+
+Therefore,
+
+\[
+    e^{\alpha^2/4}I(\alpha)=C,
+\]
+
+where $C$ is a constant.
+
+Solving for $I(\alpha)$,
+
+\begin{equation}
+    I(\alpha)
+    =
+    Ce^{-\alpha^2/4}.
+    \label{eq:cauchy_general_solution}
+\end{equation}
+
+We now apply the initial
+condition obtained in Step 3:
+
+\[
+    I(0)=\frac{\sqrt{\pi}}{2}.
+\]
+
+Substituting $\alpha=0$
+into \eqref{eq:cauchy_general_solution},
+
+\[
+    \frac{\sqrt{\pi}}{2}
+    =
+    Ce^0=C.
+\]
+
+Hence,
+
+\[
+    C=\frac{\sqrt{\pi}}{2}.
+\]
+
+We have therefore obtained
+
+\begin{equation}
+    I(\alpha)
+    =
+    \frac{\sqrt{\pi}}{2}
+    e^{-\alpha^2/4}.
+\end{equation}
+
+Since the coefficient
+$\alpha/2$ is continuous
+on $\mathbb{R}$, the
+standard existence and
+uniqueness theorem for
+first-order linear ODEs
+guarantees that this is
+the unique solution
+of the Cauchy problem.
+
+Returning to the definition
+of $I(\alpha)$, we conclude that
+
+\begin{equation}
+    \boxed{
+    \int_0^\infty
+    e^{-x^2}\cos(\alpha x)\,dx
+    =
+    \frac{\sqrt{\pi}}{2}
+    e^{-\alpha^2/4},
+    \qquad \alpha\in\mathbb{R}.
+    }
+    \label{eq:cauchy_final_result}
+\end{equation}
+
+\medskip
+
+The result is remarkable.
+An improper integral
+involving an oscillatory
+trigonometric function
+has been evaluated by
+solving a simple
+initial value problem.
+
+The essential steps were
+to differentiate with
+respect to the parameter,
+apply integration by parts,
+recognize the original
+integral, and use a
+convenient parameter value
+to obtain an initial condition.
 
 % -------------------------------------------------
 \subsection{A Logarithmic Integral}
@@ -1602,6 +2157,13 @@ In the Dirichlet integral,
 differentiation removed an
 unwanted factor of $1/x$.
 
+In the Gaussian--cosine integral,
+differentiation followed by integration
+by parts produced an ordinary differential
+equation. A known initial condition
+then allowed us to formulate and solve
+a Cauchy problem.
+
 In the logarithmic integral,
 differentiation generated
 a factor of $\ln x$ that
@@ -1642,7 +2204,6 @@ integral rule and eventually
 examining the problem from
 the perspective of linear
 operators.
-
 
 % =================================================
 \section{Why Does Feynman's Technique Work?}
@@ -3328,7 +3889,9 @@ logarithmic integrals. In each case,
 the essential idea was to introduce
 or exploit a parameter whose
 differentiation simplifies the
-original integrand.
+original integrand or leads to
+a differential equation satisfied
+by the parametric integral itself.
 
 The Gaussian integrals illustrated
 how repeated differentiation
@@ -3339,6 +3902,12 @@ The Dirichlet integral demonstrated
 how exponential damping can
 transform a difficult oscillatory
 integral into an elementary one.
+The Gaussian--cosine integral showed
+how differentiation under the integral
+sign, combined with integration by parts,
+can transform an integration problem
+into a Cauchy problem, which can then
+be solved using a known initial condition.
 Finally, the logarithmic integral
 showed how differentiation can
 eliminate an otherwise troublesome
