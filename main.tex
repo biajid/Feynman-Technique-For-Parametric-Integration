@@ -1,0 +1,3462 @@
+
+\documentclass[11pt,a4paper]{article}
+
+% ------------------------------------------------
+% Packages
+% ------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{enumitem}
+
+% ------------------------------------------------
+% Paragraph Formatting
+% ------------------------------------------------
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\geometry{margin=1in}
+
+% ------------------------------------------------
+% Theorem Environments
+% ------------------------------------------------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% ------------------------------------------------
+% Title
+% ------------------------------------------------
+\title{\textbf{An Introduction to Feynman's
+Technique for Parametric Integration}\\[0.3cm]
+\large Applications and Mathematical Justification}
+
+\author{Biajid E Chowdhury}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+% =================================================
+\section{Introduction}
+% =================================================
+
+Integration is one of the central operations of
+calculus. Although elementary techniques such as
+substitution, integration by parts, and partial
+fraction decomposition allow us to evaluate many
+integrals, there are numerous integrals arising
+in physics and applied mathematics for which
+these methods are either inefficient or do not
+lead to an elementary antiderivative.
+
+In some situations, however, an apparently
+difficult integral becomes considerably easier
+when we introduce an additional parameter and
+study how the resulting integral changes with
+respect to that parameter.
+
+This observation is the central idea behind
+\emph{parametric integration}, commonly known
+as \emph{Feynman's technique of differentiating
+under the integral sign}.
+
+The method is particularly useful when
+differentiating the integrand with respect to
+a parameter simplifies its algebraic structure.
+
+To illustrate the general idea, suppose that
+we wish to evaluate an integral of the form
+
+\begin{equation}
+    I=\int_a^b f(x)\,dx.
+    \label{eq:original_integral}
+\end{equation}
+
+Instead of attempting to evaluate
+\eqref{eq:original_integral} directly, we
+introduce a parameter $\alpha$ and construct
+a family of integrals
+
+\begin{equation}
+    F(\alpha)
+    =
+    \int_a^b f(x,\alpha)\,dx,
+    \label{eq:parametric_integral}
+\end{equation}
+
+where the original integral is recovered at
+some particular value $\alpha=\alpha_0$:
+
+\[
+    I=F(\alpha_0).
+\]
+
+The key observation is that, under suitable
+mathematical conditions, differentiation
+with respect to $\alpha$ can be performed
+inside the integral:
+
+\begin{equation}
+    \boxed{
+    \frac{d}{d\alpha}
+    \int_a^b f(x,\alpha)\,dx
+    =
+    \int_a^b
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx
+    }
+    \label{eq:feynman_rule}
+\end{equation}
+
+The expression on the right-hand side may
+be substantially easier to evaluate than
+the original integral.
+
+Once we determine $F'(\alpha)$, we can
+recover $F(\alpha)$ by integration with
+respect to $\alpha$. Any resulting
+constant of integration can then be
+determined from a known value of
+$F(\alpha)$ at a convenient parameter,
+or through a suitable limiting argument.
+
+Finally, evaluating $F$ at $\alpha_0$
+recovers the desired integral.
+
+The essential strategy is therefore not
+to attack a difficult integral directly,
+but to embed it in a family of integrals
+whose dependence on a parameter is
+easier to analyze.
+
+\medskip
+
+However, an important mathematical question
+remains. The identity \eqref{eq:feynman_rule}
+is not universally valid for arbitrary
+functions. Differentiation and integration
+cannot always be interchanged.
+
+Why, then, does Feynman's technique work?
+
+We will postpone this question until
+after developing several applications.
+We will then investigate the
+mathematical justification through
+Leibniz's integral rule and, finally,
+interpret the technique using the
+language of linear operators.
+
+
+
+% =================================================
+\section{Applications of Feynman's Technique}
+% =================================================
+
+In this section, we will solve several
+integral problems using Feynman's technique
+of differentiating under the integral sign.
+Our examples will include Gaussian integrals,
+trigonometric integrals, and logarithmic
+integrals, some of which are difficult
+to evaluate using conventional methods.
+
+For the moment, we ask the reader to
+concentrate on the mechanics of the method:
+how to introduce an appropriate parameter,
+how differentiation with respect to that
+parameter simplifies the integrand, and
+how the resulting expression leads to
+the value of the original integral.
+
+We will temporarily assume that
+differentiation and integration can be
+interchanged whenever we apply the method.
+The mathematical conditions under which
+this interchange is justified will be
+discussed in a later section.
+
+Our immediate objective is to develop
+an intuitive and practical understanding
+of the technique through explicit
+calculations.
+
+% -------------------------------------------------
+\subsection{Gaussian Integrals: Odd Powers}
+% -------------------------------------------------
+
+Let us begin by considering the family
+of Gaussian integrals
+
+\begin{equation}
+    I_n =
+    \int_0^\infty x^n e^{-x^2}\,dx,
+    \qquad n=0,1,2,\ldots
+    \label{eq:gaussian_general}
+\end{equation}
+
+These integrals arise frequently in
+probability theory, statistics, and
+mathematical physics.
+
+We will treat odd and even values of
+$n$ separately, since the corresponding
+calculations require slightly different
+approaches.
+
+First, suppose that $n$ is odd.
+We may write
+
+\[
+    n=2m+1,
+    \qquad m=0,1,2,\ldots
+\]
+
+Our objective is therefore to evaluate
+
+\begin{equation}
+    I_{2m+1}
+    =
+    \int_0^\infty
+    x^{2m+1}e^{-x^2}\,dx.
+    \label{eq:gaussian_odd}
+\end{equation}
+
+\subsubsection*{Step 1: A preliminary substitution}
+
+Before introducing a parameter, we
+make the substitution
+
+\[
+    u=x^2,
+    \qquad du=2x\,dx.
+\]
+
+Since
+
+\[
+    x^{2m+1}\,dx
+    =
+    (x^2)^m x\,dx
+    =
+    \frac{1}{2}u^m\,du,
+\]
+
+equation \eqref{eq:gaussian_odd}
+becomes
+
+\begin{equation}
+    I_{2m+1}
+    =
+    \frac{1}{2}
+    \int_0^\infty u^m e^{-u}\,du.
+    \label{eq:gaussian_odd_substitution}
+\end{equation}
+
+Although the substitution has
+simplified the exponential,
+we still have the factor $u^m$
+inside the integral.
+
+This is where Feynman's technique
+becomes useful.
+
+\subsubsection*{Step 2: Introducing a parameter}
+
+Consider the parameter-dependent
+integral
+
+\begin{equation}
+    F(\alpha)
+    =
+    \int_0^\infty e^{-\alpha u}\,du,
+    \qquad \alpha>0.
+    \label{eq:gaussian_parameter}
+\end{equation}
+
+The reason for introducing the
+parameter in the exponent is that
+
+\[
+    \frac{\partial}{\partial\alpha}
+    e^{-\alpha u}
+    =
+    -u e^{-\alpha u}.
+\]
+
+Differentiating a second time gives
+
+\[
+    \frac{\partial^2}{\partial\alpha^2}
+    e^{-\alpha u}
+    =
+    u^2 e^{-\alpha u}.
+\]
+
+More generally,
+
+\begin{equation}
+    \frac{\partial^m}{\partial\alpha^m}
+    e^{-\alpha u}
+    =
+    (-1)^m u^m e^{-\alpha u}.
+    \label{eq:gaussian_parameter_derivative}
+\end{equation}
+
+Thus, repeated differentiation
+with respect to the parameter
+generates precisely the powers
+of $u$ that appear in our
+original integral.
+
+\subsubsection*{Step 3: Applying Feynman's technique}
+
+Differentiating
+\eqref{eq:gaussian_parameter}
+$m$ times with respect to
+$\alpha$, we obtain
+
+\begin{align}
+    F^{(m)}(\alpha)
+    &=
+    \frac{d^m}{d\alpha^m}
+    \int_0^\infty e^{-\alpha u}\,du
+    \notag\\
+    &=
+    \int_0^\infty
+    \frac{\partial^m}{\partial\alpha^m}
+    e^{-\alpha u}\,du
+    \notag\\
+    &=
+    (-1)^m
+    \int_0^\infty
+    u^m e^{-\alpha u}\,du.
+    \label{eq:gaussian_odd_differentiation}
+\end{align}
+
+Consequently,
+
+\begin{equation}
+    \int_0^\infty
+    u^m e^{-\alpha u}\,du
+    =
+    (-1)^m F^{(m)}(\alpha).
+    \label{eq:gaussian_odd_identity}
+\end{equation}
+
+Comparing this expression with
+\eqref{eq:gaussian_odd_substitution},
+we see that the desired integral
+can be recovered by setting
+$\alpha=1$.
+
+Therefore,
+
+\begin{equation}
+    I_{2m+1}
+    =
+    \frac{(-1)^m}{2}
+    \left.
+    F^{(m)}(\alpha)
+    \right|_{\alpha=1}.
+    \label{eq:gaussian_odd_recovery}
+\end{equation}
+
+\subsubsection*{Step 4: Evaluating the parametric integral}
+
+The integral defining $F(\alpha)$
+is elementary:
+
+\begin{align}
+    F(\alpha)
+    &=
+    \int_0^\infty e^{-\alpha u}\,du
+    \notag\\
+    &=
+    \left[
+    -\frac{1}{\alpha}e^{-\alpha u}
+    \right]_0^\infty
+    \notag\\
+    &=
+    \frac{1}{\alpha}.
+\end{align}
+
+Hence,
+
+\[
+    F(\alpha)=\alpha^{-1}.
+\]
+
+By repeated differentiation,
+
+\begin{equation}
+    F^{(m)}(\alpha)
+    =
+    (-1)^m m!\,\alpha^{-(m+1)}.
+    \label{eq:gaussian_odd_factorial}
+\end{equation}
+
+Substituting into
+\eqref{eq:gaussian_odd_recovery},
+we obtain
+
+\begin{align}
+    I_{2m+1}
+    &=
+    \frac{(-1)^m}{2}
+    \left[
+    (-1)^m m!\,\alpha^{-(m+1)}
+    \right]_{\alpha=1}
+    \notag\\
+    &=
+    \frac{m!}{2}.
+\end{align}
+
+We have therefore established
+
+\begin{equation}
+    \boxed{
+    \int_0^\infty
+    x^{2m+1}e^{-x^2}\,dx
+    =
+    \frac{m!}{2},
+    \qquad m=0,1,2,\ldots
+    }
+    \label{eq:gaussian_odd_result}
+\end{equation}
+
+\medskip
+
+Notice the essential mechanism
+behind the calculation. Rather
+than attempting to integrate
+$u^m e^{-u}$ directly, we
+introduced a parameter into
+the exponential function.
+Differentiation with respect
+to that parameter generated
+the required power of $u$,
+while the parametric integral
+itself remained elementary.
+
+This is the principal idea
+underlying Feynman's technique.
+
+% -------------------------------------------------
+\subsection{Gaussian Integrals: Even Powers}
+% -------------------------------------------------
+
+We now turn our attention to Gaussian
+integrals involving even powers of $x$.
+Our objective is to evaluate
+
+\begin{equation}
+    I_{2m}
+    =
+    \int_0^\infty x^{2m}e^{-x^2}\,dx,
+    \qquad m=0,1,2,\ldots
+    \label{eq:gaussian_even}
+\end{equation}
+
+Unlike the odd-power case, we will
+not make an initial substitution.
+Instead, we introduce a parameter
+directly into the exponent.
+
+\subsubsection*{Step 1: Introducing a parameter}
+
+Consider the parametric integral
+
+\begin{equation}
+    G(\alpha)
+    =
+    \int_0^\infty e^{-\alpha x^2}\,dx,
+    \qquad \alpha>0.
+    \label{eq:gaussian_even_parameter}
+\end{equation}
+
+The reason for introducing $\alpha$
+into the exponent is that
+
+\[
+    \frac{\partial}{\partial\alpha}
+    e^{-\alpha x^2}
+    =
+    -x^2e^{-\alpha x^2}.
+\]
+
+Differentiating again gives
+
+\[
+    \frac{\partial^2}{\partial\alpha^2}
+    e^{-\alpha x^2}
+    =
+    x^4e^{-\alpha x^2}.
+\]
+
+Continuing this process, we obtain
+
+\begin{equation}
+    \frac{\partial^m}{\partial\alpha^m}
+    e^{-\alpha x^2}
+    =
+    (-1)^m x^{2m}e^{-\alpha x^2}.
+    \label{eq:gaussian_even_derivative}
+\end{equation}
+
+Thus, each differentiation with
+respect to $\alpha$ produces an
+additional factor of $-x^2$.
+
+Applying Feynman's technique,
+
+\begin{align}
+    G^{(m)}(\alpha)
+    &=
+    \frac{d^m}{d\alpha^m}
+    \int_0^\infty e^{-\alpha x^2}\,dx
+    \notag\\
+    &=
+    \int_0^\infty
+    \frac{\partial^m}{\partial\alpha^m}
+    e^{-\alpha x^2}\,dx
+    \notag\\
+    &=
+    (-1)^m
+    \int_0^\infty
+    x^{2m}e^{-\alpha x^2}\,dx.
+\end{align}
+
+Therefore,
+
+\begin{equation}
+    I_{2m}
+    =
+    (-1)^m
+    \left.
+    G^{(m)}(\alpha)
+    \right|_{\alpha=1}.
+    \label{eq:gaussian_even_recovery}
+\end{equation}
+
+We have now reduced the problem
+to finding the derivatives of
+$G(\alpha)$.
+
+\subsubsection*{Step 2: Evaluating the parametric integral}
+
+Recall the classical Gaussian
+integral
+
+\begin{equation}
+    \int_{-\infty}^{\infty}
+    e^{-x^2}\,dx
+    =
+    \sqrt{\pi}.
+    \label{eq:standard_gaussian}
+\end{equation}
+
+Since $e^{-x^2}$ is an even
+function, it follows that
+
+\begin{equation}
+    \int_0^\infty e^{-x^2}\,dx
+    =
+    \frac{\sqrt{\pi}}{2}.
+    \label{eq:half_gaussian}
+\end{equation}
+
+We can now evaluate
+$G(\alpha)$ by making the
+substitution
+
+\[
+    u=\sqrt{\alpha}\,x,
+    \qquad
+    dx=\frac{du}{\sqrt{\alpha}}.
+\]
+
+Consequently,
+
+\begin{align}
+    G(\alpha)
+    &=
+    \int_0^\infty
+    e^{-\alpha x^2}\,dx
+    \notag\\
+    &=
+    \frac{1}{\sqrt{\alpha}}
+    \int_0^\infty e^{-u^2}\,du
+    \notag\\
+    &=
+    \frac{\sqrt{\pi}}{2\sqrt{\alpha}}.
+\end{align}
+
+Hence,
+
+\begin{equation}
+    \boxed{
+    G(\alpha)
+    =
+    \frac{\sqrt{\pi}}{2}
+    \alpha^{-1/2}
+    }
+    \label{eq:gaussian_even_G}
+\end{equation}
+
+\subsubsection*{Step 3: Repeated differentiation}
+
+We now need to compute the
+$m$-th derivative of
+$\alpha^{-1/2}$.
+
+The first derivative is
+
+\[
+    \frac{d}{d\alpha}
+    \alpha^{-1/2}
+    =
+    -\frac{1}{2}\alpha^{-3/2}.
+\]
+
+Differentiating a second time,
+
+\[
+    \frac{d^2}{d\alpha^2}
+    \alpha^{-1/2}
+    =
+    \frac{1\cdot3}{2^2}
+    \alpha^{-5/2}.
+\]
+
+The third derivative gives
+
+\[
+    \frac{d^3}{d\alpha^3}
+    \alpha^{-1/2}
+    =
+    -\frac{1\cdot3\cdot5}{2^3}
+    \alpha^{-7/2}.
+\]
+
+Notice the pattern. Every
+differentiation introduces
+another negative sign and
+another odd integer in the
+numerator.
+
+After $m$ differentiations,
+
+
+\begin{equation}
+    \frac{d^m}{d\alpha^m}\alpha^{-1/2}
+    =
+    (-1)^m
+    \frac{1\cdot3\cdot5\cdots(2m-1)}{2^m}
+    \alpha^{-\left(m+\frac12\right)}.
+    \label{eq:half_power_derivative}
+\end{equation}
+
+
+The product
+
+\[
+    1\cdot3\cdot5\cdots(2m-1)
+\]
+
+is called the \emph{double factorial}
+of $2m-1$, denoted by
+
+\[
+    (2m-1)!!.
+\]
+
+It is important to distinguish
+the double factorial from the
+ordinary factorial.
+
+For example,
+
+\[
+    5!=5\cdot4\cdot3\cdot2\cdot1=120,
+\]
+
+whereas
+
+\[
+    5!!=5\cdot3\cdot1=15.
+\]
+
+Thus, equation
+\eqref{eq:half_power_derivative}
+can be written as
+
+\begin{equation}
+    \frac{d^m}{d\alpha^m}
+    \alpha^{-1/2}
+    =
+    (-1)^m
+    \frac{(2m-1)!!}{2^m}
+    \alpha^{-(m+1/2)}.
+    \label{eq:double_factorial_derivative}
+\end{equation}
+
+Substituting into
+\eqref{eq:gaussian_even_G},
+
+\begin{equation}
+    G^{(m)}(\alpha)
+    =
+    \frac{\sqrt{\pi}}{2}
+    (-1)^m
+    \frac{(2m-1)!!}{2^m}
+    \alpha^{-(m+1/2)}.
+    \label{eq:gaussian_G_derivative}
+\end{equation}
+
+Finally, using
+\eqref{eq:gaussian_even_recovery}
+and setting $\alpha=1$,
+
+\begin{align}
+    I_{2m}
+    &=
+    (-1)^m G^{(m)}(1)
+    \notag\\
+    &=
+    (-1)^m
+    \frac{\sqrt{\pi}}{2}
+    (-1)^m
+    \frac{(2m-1)!!}{2^m}
+    \notag\\
+    &=
+    \frac{\sqrt{\pi}(2m-1)!!}
+         {2^{m+1}}.
+\end{align}
+
+We have therefore obtained
+
+\begin{equation}
+    \boxed{
+    \int_0^\infty
+    x^{2m}e^{-x^2}\,dx
+    =
+    \frac{\sqrt{\pi}(2m-1)!!}
+         {2^{m+1}}
+    }
+    \label{eq:gaussian_even_result}
+\end{equation}
+
+Here we use the convention
+$(-1)!!=1$ when $m=0$,
+so that the formula includes
+the standard Gaussian integral.
+
+\subsubsection*{Step 4: Expressing the double factorial
+in terms of ordinary factorials}
+
+Although the double factorial
+arises naturally through repeated
+differentiation, it can also be
+expressed using ordinary factorials.
+
+To see this, consider
+
+\[
+    (2m)!
+    =
+    1\cdot2\cdot3\cdots(2m).
+\]
+
+We can separate this product
+into its odd and even factors:
+
+\begin{align}
+    (2m)!
+    &=
+    \underbrace{
+    (1\cdot3\cdot5\cdots(2m-1))
+    }_{\text{Odd factors}}
+    \notag\\
+    &\qquad\times
+    \underbrace{
+    (2\cdot4\cdot6\cdots2m)
+    }_{\text{Even factors}}.
+\end{align}
+
+The first product is
+$(2m-1)!!$.
+
+For the second product,
+we can factor out $2$
+from each of its $m$ terms:
+
+\begin{align}
+    2\cdot4\cdot6\cdots(2m)
+    &=
+    (2\cdot1)(2\cdot2)
+    \cdots(2\cdot m)
+    \notag\\
+    &=
+    2^m(1\cdot2\cdots m)
+    \notag\\
+    &=
+    2^m m!.
+\end{align}
+
+Therefore,
+
+\[
+    (2m)!
+    =
+    (2m-1)!!\,2^m m!.
+\]
+
+Rearranging,
+
+\begin{equation}
+    \boxed{
+    (2m-1)!!
+    =
+    \frac{(2m)!}{2^m m!}
+    }
+    \label{eq:double_factorial_identity}
+\end{equation}
+
+Substituting this identity into
+\eqref{eq:gaussian_even_result},
+we obtain
+
+\begin{align}
+    I_{2m}
+    &=
+    \frac{\sqrt{\pi}}{2^{m+1}}
+    \frac{(2m)!}{2^m m!}
+    \notag\\
+    &=
+    \frac{\sqrt{\pi}(2m)!}
+         {2^{2m+1}m!}.
+\end{align}
+
+Thus, an equivalent expression
+for our Gaussian integral is
+
+\begin{equation}
+    \boxed{
+    \int_0^\infty
+    x^{2m}e^{-x^2}\,dx
+    =
+    \frac{\sqrt{\pi}(2m)!}
+         {2^{2m+1}m!},
+    \qquad m=0,1,2,\ldots
+    }
+    \label{eq:gaussian_even_factorial_result}
+\end{equation}
+
+\medskip
+
+We have now evaluated the Gaussian
+integrals for both odd and even powers.
+For convenience, we summarize the
+results:
+
+\begin{equation}
+\boxed{
+\begin{aligned}
+    \int_0^\infty
+    x^{2m+1}e^{-x^2}\,dx
+    &=
+    \frac{m!}{2},\\[6pt]
+    \int_0^\infty
+    x^{2m}e^{-x^2}\,dx
+    &=
+    \frac{\sqrt{\pi}(2m)!}
+         {2^{2m+1}m!}.
+\end{aligned}
+}
+\label{eq:gaussian_summary}
+\end{equation}
+
+The two calculations illustrate
+the same underlying principle:
+by introducing a parameter into
+an exponential function, powers
+of the integration variable
+can be generated through
+repeated differentiation.
+
+
+% -------------------------------------------------
+\subsection{The Dirichlet Integral}
+% -------------------------------------------------
+
+We now consider a famous improper integral,
+commonly known as the \emph{Dirichlet integral}:
+
+\begin{equation}
+    I =
+    \int_0^\infty \frac{\sin x}{x}\,dx.
+    \label{eq:dirichlet_integral}
+\end{equation}
+
+Unlike the Gaussian integrals considered
+previously, this integral involves an
+oscillatory function divided by $x$.
+Moreover, the function $\sin x/x$ does
+not have an elementary antiderivative.
+
+Nevertheless, Feynman's technique allows
+us to evaluate the definite integral
+through a relatively straightforward
+calculation.
+
+The central idea is to introduce a
+parameter in such a way that
+differentiation removes the factor
+$1/x$ from the integrand.
+
+\subsubsection*{Step 1: Introducing a parameter}
+
+Consider the parametric integral
+
+\begin{equation}
+    F(\alpha)
+    =
+    \int_0^\infty
+    \frac{\sin x}{x}e^{-\alpha x}\,dx,
+    \qquad \alpha>0.
+    \label{eq:dirichlet_parameter}
+\end{equation}
+
+Notice that we have multiplied the
+original integrand by an exponential
+factor $e^{-\alpha x}$.
+
+This factor serves two purposes.
+
+First, for $\alpha>0$, the exponential
+decays rapidly as $x\to\infty$,
+making the integral absolutely
+convergent.
+
+Second, differentiating
+$e^{-\alpha x}$ with respect to
+$\alpha$ produces a factor of $-x$,
+which will cancel the denominator.
+
+The original integral will eventually
+be recovered by allowing
+$\alpha\to0^+$.
+
+\subsubsection*{Step 2: Differentiating under the integral sign}
+
+Differentiating $F(\alpha)$,
+we obtain
+
+\begin{align}
+    F'(\alpha)
+    &=
+    \frac{d}{d\alpha}
+    \int_0^\infty
+    \frac{\sin x}{x}e^{-\alpha x}\,dx
+    \notag\\
+    &=
+    \int_0^\infty
+    \frac{\partial}{\partial\alpha}
+    \left(
+    \frac{\sin x}{x}e^{-\alpha x}
+    \right)\,dx
+    \notag\\
+    &=
+    \int_0^\infty
+    \frac{\sin x}{x}
+    (-x)e^{-\alpha x}\,dx.
+\end{align}
+
+The factor $x$ in the numerator
+cancels with the denominator,
+leaving
+
+\begin{equation}
+    \boxed{
+    F'(\alpha)
+    =
+    -\int_0^\infty
+    e^{-\alpha x}\sin x\,dx.
+    }
+    \label{eq:dirichlet_derivative}
+\end{equation}
+
+This is the crucial simplification.
+The original integral contained
+the troublesome factor $1/x$,
+but differentiation with respect
+to the parameter has eliminated it.
+
+We are now left with an elementary
+exponential-trigonometric integral.
+
+\subsubsection*{Step 3: Evaluating the resulting integral}
+
+To evaluate the integral on the
+right-hand side of
+\eqref{eq:dirichlet_derivative},
+we use Euler's identity
+
+\[
+    e^{ix}=\cos x+i\sin x,
+\]
+
+where $i^2=-1$.
+
+In particular,
+
+\[
+    \sin x=\operatorname{Im}(e^{ix}),
+\]
+
+where $\operatorname{Im}$ denotes
+the imaginary part of a complex
+number.
+
+Therefore,
+
+\begin{align}
+    \int_0^\infty
+    e^{-\alpha x}\sin x\,dx
+    &=
+    \operatorname{Im}
+    \left(
+    \int_0^\infty
+    e^{-\alpha x}e^{ix}\,dx
+    \right)
+    \notag\\
+    &=
+    \operatorname{Im}
+    \left(
+    \int_0^\infty
+    e^{(i-\alpha)x}\,dx
+    \right).
+\end{align}
+
+The integral inside the
+imaginary-part operator is
+elementary:
+
+\begin{align}
+    \int_0^\infty
+    e^{(i-\alpha)x}\,dx
+    &=
+    \left[
+    \frac{e^{(i-\alpha)x}}{i-\alpha}
+    \right]_0^\infty
+    \notag\\
+    &=
+    -\frac{1}{i-\alpha}
+    \notag\\
+    &=
+    \frac{1}{\alpha-i}.
+\end{align}
+
+At this point, it is worth
+explaining why the exponential
+term vanishes at infinity.
+
+Observe that
+
+\[
+    e^{(i-\alpha)x}
+    =
+    e^{ix}e^{-\alpha x}.
+\]
+
+Since
+
+\[
+    |e^{ix}|=1,
+\]
+
+we have
+
+\begin{equation}
+    |e^{(i-\alpha)x}|
+    =
+    e^{-\alpha x}.
+\end{equation}
+
+For $\alpha>0$,
+
+\[
+    \lim_{x\to\infty}
+    e^{-\alpha x}=0.
+\]
+
+Consequently,
+
+\begin{equation}
+    \lim_{x\to\infty}
+    e^{(i-\alpha)x}=0.
+\end{equation}
+
+Thus, although $e^{ix}$ oscillates,
+the exponential damping factor
+forces the entire expression
+to approach zero.
+
+Returning to our calculation,
+we obtain
+
+\begin{align}
+    \frac{1}{\alpha-i}
+    &=
+    \frac{\alpha+i}
+         {(\alpha-i)(\alpha+i)}
+    \notag\\
+    &=
+    \frac{\alpha+i}{\alpha^2+1}.
+\end{align}
+
+Taking the imaginary part gives
+
+\begin{equation}
+    \int_0^\infty
+    e^{-\alpha x}\sin x\,dx
+    =
+    \frac{1}{1+\alpha^2}.
+\end{equation}
+
+Therefore, equation
+\eqref{eq:dirichlet_derivative}
+becomes
+
+\begin{equation}
+    \boxed{
+    F'(\alpha)
+    =
+    -\frac{1}{1+\alpha^2}.
+    }
+    \label{eq:dirichlet_differential}
+\end{equation}
+
+\subsubsection*{Step 4: Recovering the parametric integral}
+
+We now have a simple differential
+equation for $F(\alpha)$:
+
+\[
+    \frac{dF}{d\alpha}
+    =
+    -\frac{1}{1+\alpha^2}.
+\]
+
+Integrating with respect to
+$\alpha$, we obtain
+
+\begin{equation}
+    F(\alpha)
+    =
+    -\arctan(\alpha)+C,
+    \label{eq:dirichlet_antiderivative}
+\end{equation}
+
+where $C$ is a constant
+of integration.
+
+To determine $C$, we examine
+the behavior of $F(\alpha)$
+as $\alpha\to\infty$.
+
+Recall that
+
+\[
+    F(\alpha)
+    =
+    \int_0^\infty
+    \frac{\sin x}{x}e^{-\alpha x}\,dx.
+\]
+
+Since
+
+\[
+    \left|\frac{\sin x}{x}\right|
+    \leq 1,
+    \qquad x>0,
+\]
+
+we obtain
+
+\begin{align}
+    |F(\alpha)|
+    &\leq
+    \int_0^\infty
+    \left|\frac{\sin x}{x}\right|
+    e^{-\alpha x}\,dx
+    \notag\\
+    &\leq
+    \int_0^\infty e^{-\alpha x}\,dx
+    \notag\\
+    &=
+    \frac{1}{\alpha}.
+\end{align}
+
+Therefore,
+
+\[
+    \lim_{\alpha\to\infty}
+    F(\alpha)=0.
+\]
+
+Applying this limit to
+\eqref{eq:dirichlet_antiderivative},
+
+\[
+    0
+    =
+    -\frac{\pi}{2}+C.
+\]
+
+Hence,
+
+\[
+    C=\frac{\pi}{2}.
+\]
+
+We have consequently obtained
+
+\begin{equation}
+    \boxed{
+    F(\alpha)
+    =
+    \frac{\pi}{2}-\arctan(\alpha),
+    \qquad \alpha>0.
+    }
+    \label{eq:dirichlet_parametric_result}
+\end{equation}
+
+\subsubsection*{Step 5: Recovering the original integral}
+
+We now return to our original
+objective:
+
+\[
+    I=
+    \int_0^\infty\frac{\sin x}{x}\,dx.
+\]
+
+Recall that the parameter
+$\alpha$ was introduced only
+as an auxiliary variable.
+
+The original integrand is
+recovered when the damping
+factor $e^{-\alpha x}$
+approaches $1$.
+
+Thus, we consider
+
+\[
+    \lim_{\alpha\to0^+}F(\alpha).
+\]
+
+Using
+\eqref{eq:dirichlet_parametric_result},
+
+\begin{align}
+    \lim_{\alpha\to0^+}F(\alpha)
+    &=
+    \lim_{\alpha\to0^+}
+    \left(
+    \frac{\pi}{2}-\arctan\alpha
+    \right)
+    \notag\\
+    &=
+    \frac{\pi}{2}.
+\end{align}
+
+The original improper integral
+converges by Dirichlet's test.
+Moreover, the exponential
+damping preserves its value
+in the limit $\alpha\to0^+$.
+This limiting argument will
+be discussed when we examine
+the mathematical justification
+of the method.
+
+We therefore conclude that
+
+\begin{equation}
+    \boxed{
+    \int_0^\infty
+    \frac{\sin x}{x}\,dx
+    =
+    \frac{\pi}{2}.
+    }
+    \label{eq:dirichlet_final}
+\end{equation}
+
+\medskip
+
+Notice how the choice of parameter
+determined the success of the method.
+By introducing an exponential
+damping factor, we transformed
+an integral involving $\sin x/x$
+into an elementary integral
+involving $e^{-\alpha x}\sin x$.
+
+In contrast with the Gaussian
+examples, where repeated
+differentiation generated powers
+of the integration variable,
+here a single differentiation
+eliminated an unwanted factor
+from the denominator.
+
+This is another important
+application of Feynman's technique.
+
+
+% -------------------------------------------------
+\subsection{A Logarithmic Integral}
+% -------------------------------------------------
+
+Our final example concerns a
+family of logarithmic integrals.
+
+Consider
+
+\begin{equation}
+    I(\alpha)
+    =
+    \int_0^1
+    \frac{x^\alpha-1}{\ln x}\,dx,
+    \qquad \alpha>-1.
+    \label{eq:logarithmic_integral}
+\end{equation}
+
+The presence of $\ln x$
+in the denominator makes
+direct integration difficult.
+
+Furthermore, the integrand
+appears to be undefined at
+$x=1$, since both the numerator
+and denominator vanish there.
+
+However, this is only a
+removable singularity. Indeed,
+
+\[
+    \lim_{x\to1}
+    \frac{x^\alpha-1}{\ln x}
+    =
+    \alpha.
+\]
+
+Thus, the behavior near
+$x=1$ causes no difficulty.
+
+Unlike our previous examples,
+the parameter is already
+present in the integral.
+We therefore do not need to
+introduce an additional one.
+
+\subsubsection*{Step 1: Differentiating with respect to the parameter}
+
+We begin by differentiating
+$I(\alpha)$:
+
+\begin{align}
+    I'(\alpha)
+    &=
+    \frac{d}{d\alpha}
+    \int_0^1
+    \frac{x^\alpha-1}{\ln x}\,dx
+    \notag\\
+    &=
+    \int_0^1
+    \frac{\partial}{\partial\alpha}
+    \left(
+    \frac{x^\alpha-1}{\ln x}
+    \right)\,dx.
+\end{align}
+
+To compute the derivative
+inside the integral,
+recall that
+
+\[
+    x^\alpha=e^{\alpha\ln x}.
+\]
+
+Consequently,
+
+\begin{equation}
+    \frac{\partial}{\partial\alpha}
+    x^\alpha
+    =
+    x^\alpha\ln x.
+\end{equation}
+
+Therefore,
+
+\begin{align}
+    I'(\alpha)
+    &=
+    \int_0^1
+    \frac{x^\alpha\ln x}{\ln x}\,dx
+    \notag\\
+    &=
+    \int_0^1 x^\alpha\,dx.
+\end{align}
+
+We have obtained
+
+\begin{equation}
+    \boxed{
+    I'(\alpha)
+    =
+    \int_0^1 x^\alpha\,dx.
+    }
+    \label{eq:logarithmic_derivative}
+\end{equation}
+
+Notice what happened:
+differentiating $x^\alpha$
+produced precisely the factor
+$\ln x$ required to cancel
+the denominator.
+
+This is the essential idea
+behind our choice of
+differentiation.
+
+\subsubsection*{Step 2: Evaluating the resulting integral}
+
+The integral on the right-hand
+side of
+\eqref{eq:logarithmic_derivative}
+is now elementary.
+
+For $\alpha>-1$,
+
+\begin{align}
+    I'(\alpha)
+    &=
+    \int_0^1 x^\alpha\,dx
+    \notag\\
+    &=
+    \left[
+    \frac{x^{\alpha+1}}{\alpha+1}
+    \right]_0^1
+    \notag\\
+    &=
+    \frac{1}{\alpha+1}.
+\end{align}
+
+Thus,
+
+\begin{equation}
+    \boxed{
+    I'(\alpha)=\frac{1}{\alpha+1}.
+    }
+    \label{eq:logarithmic_differential}
+\end{equation}
+
+\subsubsection*{Step 3: Recovering the original integral}
+
+We now integrate with respect
+to $\alpha$:
+
+\[
+    \frac{dI}{d\alpha}
+    =
+    \frac{1}{\alpha+1}.
+\]
+
+Therefore,
+
+\begin{equation}
+    I(\alpha)
+    =
+    \ln(\alpha+1)+C,
+    \label{eq:logarithmic_antiderivative}
+\end{equation}
+
+where $C$ is a constant
+of integration.
+
+To determine this constant,
+we use a convenient value
+of the parameter.
+
+Setting $\alpha=0$ in
+the original integral gives
+
+\begin{align}
+    I(0)
+    &=
+    \int_0^1
+    \frac{x^0-1}{\ln x}\,dx
+    \notag\\
+    &=
+    \int_0^1 0\,dx
+    \notag\\
+    &=0.
+\end{align}
+
+On the other hand,
+equation
+\eqref{eq:logarithmic_antiderivative}
+gives
+
+\[
+    I(0)=\ln 1+C=C.
+\]
+
+Consequently,
+
+\[
+    C=0.
+\]
+
+We have therefore established
+
+\begin{equation}
+    \boxed{
+    \int_0^1
+    \frac{x^\alpha-1}{\ln x}\,dx
+    =
+    \ln(\alpha+1),
+    \qquad \alpha>-1.
+    }
+    \label{eq:logarithmic_final}
+\end{equation}
+
+As a particular example,
+setting $\alpha=1$ gives
+
+\begin{equation}
+    \boxed{
+    \int_0^1
+    \frac{x-1}{\ln x}\,dx
+    =
+    \ln 2.
+    }
+    \label{eq:logarithmic_special}
+\end{equation}
+
+\medskip
+
+This example is particularly
+instructive because the
+parameter was already present
+in the original integral.
+
+Differentiation generated
+a logarithmic factor that
+canceled the denominator,
+reducing the problem to
+an elementary power integral.
+
+The constant of integration
+was then determined by
+evaluating the original
+parametric integral at
+a convenient parameter value.
+
+
+% -------------------------------------------------
+\subsection{Observations on the Method}
+% -------------------------------------------------
+
+The preceding examples illustrate
+several ways in which Feynman's
+technique can simplify difficult
+integrals.
+
+In the Gaussian integrals,
+differentiation with respect to
+a parameter generated powers
+of the integration variable.
+
+In the Dirichlet integral,
+differentiation removed an
+unwanted factor of $1/x$.
+
+In the logarithmic integral,
+differentiation generated
+a factor of $\ln x$ that
+canceled the denominator.
+
+Although the calculations
+look different, the common
+principle remains the same:
+we replace a difficult
+integration problem with
+the study of a suitable
+parameter-dependent integral.
+
+Once the derivative with
+respect to the parameter
+has been evaluated, the
+original integral can often
+be recovered through
+elementary integration
+and an appropriate
+boundary or limiting condition.
+
+At this point, however,
+an important mathematical
+question remains unanswered.
+
+Throughout these examples,
+we have interchanged
+differentiation and integration
+without establishing the
+conditions under which this
+operation is legitimate.
+
+We now turn to the mathematical
+foundation of Feynman's technique,
+beginning with Leibniz's
+integral rule and eventually
+examining the problem from
+the perspective of linear
+operators.
+
+
+% =================================================
+\section{Why Does Feynman's Technique Work?}
+% =================================================
+
+In the preceding section, we evaluated
+several nontrivial integrals using
+Feynman's technique of differentiating
+under the integral sign.
+
+Although the calculations were
+relatively straightforward, we
+repeatedly used an important identity
+without establishing its mathematical
+validity:
+
+\begin{equation}
+    \frac{d}{d\alpha}
+    \int_a^b f(x,\alpha)\,dx
+    =
+    \int_a^b
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx.
+    \label{eq:leibniz_question}
+\end{equation}
+
+The left-hand side tells us to
+integrate first and then
+differentiate, while the
+right-hand side reverses
+the order of these operations.
+
+Why should these two procedures
+produce the same result?
+
+To understand the underlying
+idea, we begin with the
+definition of integration
+through Riemann sums.
+
+% -------------------------------------------------
+\subsection{An Intuitive Explanation Using Riemann Sums}
+% -------------------------------------------------
+
+Recall from elementary calculus
+that a definite integral can be
+defined as the limit of a
+sequence of Riemann sums.
+
+Suppose that $f(x,\alpha)$
+is a sufficiently regular
+function on the interval
+$[a,b]$.
+
+We divide $[a,b]$ into
+$n$ subintervals,
+
+\[
+    a=x_0<x_1<\cdots<x_n=b,
+\]
+
+and let
+
+\[
+    \Delta x_i=x_i-x_{i-1}.
+\]
+
+Choosing a point $\xi_i$
+from each subinterval,
+we construct the Riemann sum
+
+\begin{equation}
+    S_n(\alpha)
+    =
+    \sum_{i=1}^{n}
+    f(\xi_i,\alpha)\Delta x_i.
+    \label{eq:riemann_parametric}
+\end{equation}
+
+As the maximum width of the
+subintervals approaches zero,
+the Riemann sums converge
+to the definite integral:
+
+\begin{equation}
+    F(\alpha)
+    =
+    \int_a^b f(x,\alpha)\,dx
+    =
+    \lim_{n\to\infty}
+    S_n(\alpha).
+    \label{eq:riemann_limit}
+\end{equation}
+
+Now observe that each
+$S_n(\alpha)$ is simply
+a finite sum of functions
+of the parameter $\alpha$.
+
+Since differentiation is
+a linear operation,
+we can differentiate
+this finite sum term
+by term:
+
+\begin{align}
+    S_n'(\alpha)
+    &=
+    \frac{d}{d\alpha}
+    \sum_{i=1}^{n}
+    f(\xi_i,\alpha)\Delta x_i
+    \notag\\
+    &=
+    \sum_{i=1}^{n}
+    \frac{\partial f(\xi_i,\alpha)}
+         {\partial\alpha}
+    \Delta x_i.
+    \label{eq:riemann_derivative}
+\end{align}
+
+Notice that $\Delta x_i$
+does not depend on $\alpha$,
+since the interval of
+integration is fixed.
+
+The expression on the
+right-hand side of
+\eqref{eq:riemann_derivative}
+is itself a Riemann sum,
+this time for the function
+
+\[
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}.
+\]
+
+Consequently, if we take
+the limit as the partition
+becomes finer, we expect
+
+\begin{equation}
+    \lim_{n\to\infty}
+    S_n'(\alpha)
+    =
+    \int_a^b
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx.
+    \label{eq:riemann_derivative_limit}
+\end{equation}
+
+On the other hand, since
+
+\[
+    F(\alpha)
+    =
+    \lim_{n\to\infty}S_n(\alpha),
+\]
+
+we would like to write
+
+\[
+    F'(\alpha)
+    =
+    \lim_{n\to\infty}S_n'(\alpha).
+\]
+
+Combining these observations
+would give
+
+\[
+    \boxed{
+    \frac{d}{d\alpha}
+    \int_a^b f(x,\alpha)\,dx
+    =
+    \int_a^b
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx.
+    }
+\]
+
+This is precisely the
+identity used in Feynman's
+technique.
+
+\medskip
+
+However, there is a subtle
+mathematical issue hidden
+in this argument.
+
+Although differentiation
+can always be distributed
+over a finite sum, it
+cannot necessarily be
+interchanged with an
+infinite limit.
+
+In particular, the identity
+
+\[
+    \frac{d}{d\alpha}
+    \left(
+    \lim_{n\to\infty}S_n(\alpha)
+    \right)
+    =
+    \lim_{n\to\infty}S_n'(\alpha)
+\]
+
+requires additional
+assumptions.
+
+Thus, the Riemann-sum
+argument provides a useful
+intuition, but it does not,
+by itself, constitute
+a complete proof.
+
+To establish the result
+rigorously, we turn to
+Leibniz's integral rule.
+
+% -------------------------------------------------
+
+% -------------------------------------------------
+\subsection{Leibniz's Integral Rule}
+% -------------------------------------------------
+
+We now establish the mathematical
+justification for differentiation
+under the integral sign.
+
+We first consider the case where
+the limits of integration are fixed,
+that is, they do not depend on
+the parameter $\alpha$.
+
+\begin{theorem}[Differentiation Under the Integral Sign]
+
+Let $J\subseteq\mathbb{R}$ be an
+open interval, and let $a<b$.
+Suppose that $f(x,\alpha)$
+and its partial derivative
+
+\[
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}
+\]
+
+are continuous on $[a,b]\times J$.
+
+Define
+
+\[
+    F(\alpha)
+    =
+    \int_a^b f(x,\alpha)\,dx.
+\]
+
+Then $F$ is differentiable
+on $J$, and
+
+\begin{equation}
+    \boxed{
+    F'(\alpha)
+    =
+    \int_a^b
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx.
+    }
+    \label{eq:leibniz_theorem}
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}
+
+We will establish the theorem
+directly from the definition
+of the derivative.
+
+\medskip
+
+\textbf{Step 1: Applying the definition
+of the derivative.}
+
+Fix an arbitrary $\alpha\in J$.
+By the definition of the derivative,
+
+\begin{equation}
+    F'(\alpha)
+    =
+    \lim_{h\to0}
+    \frac{F(\alpha+h)-F(\alpha)}{h}.
+\end{equation}
+
+Recall that
+
+\[
+    F(\alpha)
+    =
+    \int_a^b f(x,\alpha)\,dx.
+\]
+
+Therefore, for $h\neq0$,
+
+\begin{align}
+    &\frac{F(\alpha+h)-F(\alpha)}{h}
+    \notag\\
+    &=
+    \frac{1}{h}
+    \left[
+    \int_a^b f(x,\alpha+h)\,dx
+    -
+    \int_a^b f(x,\alpha)\,dx
+    \right]
+    \notag\\
+    &=
+    \int_a^b
+    \frac{f(x,\alpha+h)-f(x,\alpha)}
+         {h}\,dx.
+    \label{eq:leibniz_difference_quotient}
+\end{align}
+
+The last equality follows
+from the linearity of
+definite integration.
+
+Notice that, at this stage,
+we have not interchanged
+differentiation and integration.
+We have only used the linearity
+of the integral.
+
+Our objective is to prove that
+
+\begin{equation}
+    \lim_{h\to0}
+    \int_a^b
+    \frac{f(x,\alpha+h)-f(x,\alpha)}
+         {h}\,dx
+    =
+    \int_a^b
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx.
+\end{equation}
+
+\medskip
+
+\textbf{Step 2: Applying the Mean Value Theorem.}
+
+For the moment, hold $x$ fixed
+and consider $f(x,\alpha)$
+as a function of $\alpha$ alone.
+
+Since the partial derivative
+with respect to $\alpha$
+is continuous, we can apply
+the ordinary Mean Value Theorem.
+
+For sufficiently small
+$h\neq0$, there exists
+a number $\xi_{x,h}$
+between $\alpha$ and
+$\alpha+h$ such that
+
+\begin{equation}
+    \frac{f(x,\alpha+h)-f(x,\alpha)}
+         {h}
+    =
+    \frac{\partial f(x,\xi_{x,h})}
+         {\partial\alpha}.
+    \label{eq:leibniz_mvt}
+\end{equation}
+
+The subscript $x,h$ reminds us
+that this intermediate point
+may depend on both $x$ and $h$.
+
+Since $\xi_{x,h}$ lies between
+$\alpha$ and $\alpha+h$, we have
+
+\begin{equation}
+    |\xi_{x,h}-\alpha|
+    \leq |h|.
+    \label{eq:leibniz_xi_bound}
+\end{equation}
+
+Thus, as $h$ approaches zero,
+the intermediate point
+$\xi_{x,h}$ approaches $\alpha$.
+
+By continuity of the partial
+derivative, we expect
+
+\[
+    \frac{\partial f(x,\xi_{x,h})}
+         {\partial\alpha}
+    \longrightarrow
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}.
+\]
+
+We must now show that this
+convergence is sufficiently
+well behaved to pass the limit
+through the integral.
+
+\medskip
+
+\textbf{Step 3: Estimating the error.}
+
+Let us compare the difference
+quotient of $F$ with the
+expression that we want
+to obtain.
+
+Define the error
+
+\begin{align}
+    E(h)
+    &=
+    \left|
+    \frac{F(\alpha+h)-F(\alpha)}{h}
+    -
+    \int_a^b
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx
+    \right|.
+    \label{eq:leibniz_error}
+\end{align}
+
+Using equation
+\eqref{eq:leibniz_difference_quotient}
+and the linearity of
+integration, we obtain
+
+\begin{align}
+    E(h)
+    &=
+    \left|
+    \int_a^b
+    \left[
+    \frac{f(x,\alpha+h)-f(x,\alpha)}{h}
+    -
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}
+    \right]dx
+    \right|.
+\end{align}
+
+Now apply the Mean Value
+Theorem from Step 2:
+
+\begin{align}
+    E(h)
+    &=
+    \left|
+    \int_a^b
+    \left[
+    \frac{\partial f(x,\xi_{x,h})}
+         {\partial\alpha}
+    -
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}
+    \right]dx
+    \right|.
+\end{align}
+
+Recall the elementary
+inequality
+
+\begin{equation}
+    \left|
+    \int_a^b g(x)\,dx
+    \right|
+    \leq
+    \int_a^b |g(x)|\,dx.
+    \label{eq:integral_absolute_inequality}
+\end{equation}
+
+Applying this inequality gives
+
+\begin{align}
+    E(h)
+    &\leq
+    \int_a^b
+    \left|
+    \frac{\partial f(x,\xi_{x,h})}
+         {\partial\alpha}
+    -
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}
+    \right|dx.
+    \label{eq:leibniz_error_bound}
+\end{align}
+
+We now want to show that
+the quantity inside the
+absolute value becomes
+uniformly small as
+$h\to0$.
+
+\medskip
+
+\textbf{Step 4: Why the error becomes small.}
+
+Since $J$ is open and
+$\alpha\in J$, we can
+choose a small number
+$\delta>0$ such that
+
+\[
+    [\alpha-\delta,\alpha+\delta]
+    \subset J.
+\]
+
+Consider the rectangle
+
+\[
+    K=
+    [a,b]\times
+    [\alpha-\delta,\alpha+\delta].
+\]
+
+This rectangle is closed
+and bounded, hence compact.
+
+By assumption, the partial
+derivative
+
+\[
+    \frac{\partial f(x,t)}
+         {\partial\alpha}
+\]
+
+is continuous on $K$.
+
+A standard result from
+elementary analysis states
+that a continuous function
+on a compact set is
+uniformly continuous.
+
+In our setting, this means
+that for every $\varepsilon>0$,
+we can choose a sufficiently
+small $\eta>0$ such that
+
+\begin{equation}
+    |t-\alpha|<\eta
+    \quad\Longrightarrow\quad
+    \left|
+    \frac{\partial f(x,t)}
+         {\partial\alpha}
+    -
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}
+    \right|
+    <\varepsilon
+    \label{eq:leibniz_uniform_continuity}
+\end{equation}
+
+for every $x\in[a,b]$,
+provided both parameter
+values lie in the rectangle.
+
+The important point is that
+we can use the same $\eta$
+for every $x\in[a,b]$.
+
+This is precisely what
+uniform continuity guarantees.
+
+Now recall from
+\eqref{eq:leibniz_xi_bound}
+that
+
+\[
+    |\xi_{x,h}-\alpha|
+    \leq |h|.
+\]
+
+Therefore, whenever $h$
+is sufficiently small,
+equation
+\eqref{eq:leibniz_uniform_continuity}
+implies
+
+\begin{equation}
+    \left|
+    \frac{\partial f(x,\xi_{x,h})}
+         {\partial\alpha}
+    -
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}
+    \right|
+    <\varepsilon
+    \label{eq:leibniz_small_integrand}
+\end{equation}
+
+for every $x\in[a,b]$.
+
+Substituting this bound
+into equation
+\eqref{eq:leibniz_error_bound},
+we obtain
+
+\begin{align}
+    E(h)
+    &\leq
+    \int_a^b
+    \left|
+    \frac{\partial f(x,\xi_{x,h})}
+         {\partial\alpha}
+    -
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}
+    \right|dx
+    \notag\\
+    &\leq
+    \int_a^b \varepsilon\,dx
+    \notag\\
+    &=
+    \varepsilon(b-a).
+\end{align}
+
+
+
+Geometrically, this is
+the area of a rectangle
+with height $\varepsilon$
+and width $(b-a)$.
+
+Thus, we have established
+
+\begin{equation}
+    \boxed{
+    0\leq E(h)\leq\varepsilon(b-a)
+    }
+    \label{eq:leibniz_final_error_bound}
+\end{equation}
+
+for all sufficiently
+small nonzero $h$.
+
+Since $\varepsilon>0$
+can be chosen arbitrarily
+small and $(b-a)$ is
+a fixed finite number,
+the error must approach zero.
+
+More precisely, given any
+desired error tolerance
+$\rho>0$, we may choose
+
+\[
+    \varepsilon=\frac{\rho}{b-a}.
+\]
+
+Then the preceding
+inequality gives
+
+\[
+    0\leq E(h)\leq\rho
+\]
+
+whenever $h$ is
+sufficiently small.
+
+Consequently,
+
+\begin{equation}
+    \lim_{h\to0}E(h)=0.
+\end{equation}
+
+\medskip
+
+\textbf{Step 5: Completing the proof.}
+
+By the definition of
+$E(h)$, the preceding
+limit means that
+
+\[
+    \lim_{h\to0}
+    \frac{F(\alpha+h)-F(\alpha)}{h}
+    =
+    \int_a^b
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx.
+\]
+
+But the expression on
+the left-hand side is
+exactly $F'(\alpha)$.
+
+Therefore,
+
+\begin{equation}
+    \boxed{
+    \frac{d}{d\alpha}
+    \int_a^b f(x,\alpha)\,dx
+    =
+    \int_a^b
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx.
+    }
+\end{equation}
+
+Since $\alpha\in J$ was
+arbitrary, the result
+holds throughout $J$.
+
+This completes the proof.
+
+\end{proof}
+
+\medskip
+
+The proof reveals the
+mathematical principle
+behind Feynman's technique.
+
+
+
+% -------------------------------------------------
+\subsection{When the Limits of Integration Depend on the Parameter}
+% -------------------------------------------------
+
+The preceding theorem assumes
+that the integration limits
+$a$ and $b$ are fixed.
+
+Suppose instead that the
+limits are differentiable
+functions of $\alpha$:
+
+\[
+    F(\alpha)
+    =
+    \int_{a(\alpha)}^{b(\alpha)}
+    f(x,\alpha)\,dx.
+\]
+
+Under suitable continuity
+and differentiability
+assumptions, the general
+form of Leibniz's rule is
+
+\begin{equation}
+\boxed{
+\begin{aligned}
+    F'(\alpha)
+    &=
+    f(b(\alpha),\alpha)b'(\alpha)\\
+    &\quad-
+    f(a(\alpha),\alpha)a'(\alpha)\\
+    &\quad+
+    \int_{a(\alpha)}^{b(\alpha)}
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx.
+\end{aligned}
+}
+\label{eq:general_leibniz_rule}
+\end{equation}
+
+The first two terms account
+for the movement of the
+integration boundaries,
+while the third term
+accounts for the change
+in the integrand itself.
+
+When $a$ and $b$ are
+constants,
+
+\[
+    a'(\alpha)=b'(\alpha)=0,
+\]
+
+and the formula reduces
+to the familiar identity
+
+\[
+    \frac{d}{d\alpha}
+    \int_a^b f(x,\alpha)\,dx
+    =
+    \int_a^b
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx.
+\]
+
+This is the special case
+we have used throughout
+our examples.
+
+% -------------------------------------------------
+\subsection{A Remark on Improper Integrals}
+% -------------------------------------------------
+
+There is one more subtlety
+worth mentioning.
+
+Several integrals considered
+in the preceding section
+were improper integrals,
+with an infinite integration
+interval or a singularity
+at an endpoint.
+
+The theorem proved above
+applies directly to a
+finite interval $[a,b]$.
+For an improper integral
+such as
+
+\[
+    F(\alpha)
+    =
+    \int_0^\infty f(x,\alpha)\,dx,
+\]
+
+additional conditions are
+required to justify
+differentiating under the
+integral sign.
+
+One useful sufficient
+condition is that, for
+parameters in a neighborhood
+of a fixed value $\alpha_0$,
+there exists an integrable
+function $g(x)$ such that
+
+\begin{equation}
+    \left|
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}
+    \right|
+    \leq g(x),
+    \label{eq:dominating_function}
+\end{equation}
+
+where
+
+\[
+    \int_0^\infty g(x)\,dx<\infty.
+\]
+
+If the integrand is
+differentiable with respect
+to $\alpha$, the integral
+defining $F(\alpha)$ is
+well-defined, and the
+necessary measurability
+conditions hold, this
+domination allows us to
+justify the interchange
+using the dominated
+convergence theorem.
+
+For example, the Gaussian
+integrands we studied are
+smooth and decay rapidly
+at infinity whenever
+$\alpha>0$.
+
+Their parameter derivatives
+can be controlled by
+integrable functions on
+suitable neighborhoods
+of any fixed positive
+parameter.
+
+The exponentially damped
+Dirichlet integral admits
+a similar justification
+for $\alpha>0$.
+
+However, recovering the
+original Dirichlet integral
+by letting $\alpha\to0^+$
+is a separate limiting
+question. Its justification
+cannot be obtained merely
+by substituting $\alpha=0$
+into the differentiation
+formula.
+
+These distinctions are
+important because they
+show that Feynman's technique
+is not an unrestricted
+algebraic manipulation.
+Its validity depends on
+the properties of the
+functions and the domains
+under consideration.
+
+\medskip
+
+We have now obtained the
+mathematical foundation
+for differentiating under
+the integral sign.
+
+Nevertheless, another
+interesting interpretation
+remains.
+
+Since both integration
+and differentiation are
+linear operations, we may
+ask whether Feynman's
+technique can be understood
+in the language of
+linear operators.
+
+This perspective will
+be developed in the
+next section.
+
+% =================================================
+\section{An Operator-Theoretic Interpretation
+of Feynman's Technique}
+% =================================================
+
+We have now established the mathematical
+conditions under which differentiation
+and integration can be interchanged. However, there is another interesting
+way to understand Feynman's technique,
+particularly for readers familiar
+with linear algebra and matrix mechanics.
+
+Instead of treating differentiation
+and integration merely as operations
+from calculus, we can regard them as
+linear operators acting on spaces
+of functions.
+
+From this perspective, the central
+question becomes:
+
+\medskip
+
+\emph{Under what conditions do the
+differentiation and integration
+operators commute?}
+
+\medskip
+
+We will develop this interpretation
+step by step.
+
+% -------------------------------------------------
+\subsection{Functions as Vectors}
+% -------------------------------------------------
+
+Recall that a vector space is a
+collection of objects on which
+vector addition and scalar
+multiplication are defined,
+satisfying the usual vector
+space axioms.
+
+In elementary linear algebra,
+we generally work with vectors
+in $\mathbb{R}^n$.
+
+For example,
+
+\[
+    v=
+    \begin{pmatrix}
+        v_1\\
+        v_2\\
+        \vdots\\
+        v_n
+    \end{pmatrix}
+    \in\mathbb{R}^n.
+\]
+
+However, vectors need not be
+finite lists of real numbers.
+
+Functions can also be regarded
+as vectors.
+
+For example, the collection
+$C([a,b])$ of continuous
+real-valued functions on
+$[a,b]$ forms a vector space
+under the operations
+
+\[
+    (f+g)(x)=f(x)+g(x)
+\]
+
+and
+
+\[
+    (cf)(x)=cf(x),
+    \qquad c\in\mathbb{R}.
+\]
+
+Unlike $\mathbb{R}^n$,
+this function space is
+infinite-dimensional.
+
+The important observation
+is that familiar operations
+from calculus can be studied
+as transformations between
+such vector spaces.
+
+In particular, differentiation
+and integration are linear
+transformations.
+
+% -------------------------------------------------
+\subsection{Differentiation and Integration
+as Linear Operators}
+% -------------------------------------------------
+
+Let us first consider the
+differentiation operator
+
+\[
+    Df=\frac{df}{dx}.
+\]
+
+For differentiable functions
+$f$ and $g$, and constants
+$c_1,c_2$, we have
+
+\begin{align}
+    D(c_1f+c_2g)
+    &=
+    \frac{d}{dx}(c_1f+c_2g)
+    \notag\\
+    &=
+    c_1\frac{df}{dx}
+    +
+    c_2\frac{dg}{dx}
+    \notag\\
+    &=
+    c_1Df+c_2Dg.
+\end{align}
+
+Thus, differentiation is
+a linear operator.
+
+Similarly, define the
+integration operator
+
+\begin{equation}
+    Tf=\int_a^b f(x)\,dx.
+\end{equation}
+
+By linearity of integration,
+
+\begin{align}
+    T(c_1f+c_2g)
+    &=
+    \int_a^b
+    (c_1f(x)+c_2g(x))\,dx
+    \notag\\
+    &=
+    c_1\int_a^b f(x)\,dx
+    +
+    c_2\int_a^b g(x)\,dx
+    \notag\\
+    &=
+    c_1Tf+c_2Tg.
+\end{align}
+
+Therefore, integration is
+also a linear operator.
+
+Notice that differentiation
+and definite integration
+need not have the same
+domain and codomain.
+
+For example, differentiation
+maps differentiable functions
+to functions, whereas
+definite integration over
+a fixed interval maps
+functions to real numbers.
+
+When a parameter is present,
+the situation becomes
+particularly interesting.
+
+% -------------------------------------------------
+\subsection{Introducing the Parameter}
+% -------------------------------------------------
+
+Suppose that we have a
+function $f(x,\alpha)$,
+where $x$ is the variable
+of integration and
+$\alpha$ is a parameter.
+
+Let $J$ be an open interval
+containing the allowed
+values of $\alpha$.
+
+We define the integration
+operator with respect to
+$x$ by
+
+\begin{equation}
+    (T_xf)(\alpha)
+    =
+    \int_a^b f(x,\alpha)\,dx.
+    \label{eq:operator_T}
+\end{equation}
+
+Notice that $T_xf$ is
+now a function of $\alpha$.
+
+Integration has eliminated
+the dependence on $x$,
+but the parameter remains.
+
+Next, define differentiation
+with respect to $\alpha$:
+
+\begin{equation}
+    (D_\alpha f)(x,\alpha)
+    =
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}.
+    \label{eq:operator_D}
+\end{equation}
+
+We also use $D_\alpha$
+to denote ordinary
+differentiation when
+acting on a function
+of $\alpha$ alone.
+
+Both operations are linear,
+but they act in different
+ways.
+
+The integration operator
+$T_x$ integrates over
+the variable $x$,
+whereas $D_\alpha$
+measures variation with
+respect to the parameter
+$\alpha$.
+
+Our objective is to
+investigate whether
+the order of these
+operations matters.
+
+% -------------------------------------------------
+\subsection{Commutativity of the Operators}
+% -------------------------------------------------
+
+Consider first applying
+the integration operator
+and then differentiating
+the result.
+
+We obtain
+
+\begin{equation}
+    D_\alpha(T_xf)
+    =
+    \frac{d}{d\alpha}
+    \left(
+    \int_a^b f(x,\alpha)\,dx
+    \right).
+    \label{eq:operator_DT}
+\end{equation}
+
+Now reverse the order.
+
+First differentiate the
+integrand with respect
+to $\alpha$, and then
+integrate over $x$:
+
+\begin{equation}
+    T_x(D_\alpha f)
+    =
+    \int_a^b
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx.
+    \label{eq:operator_TD}
+\end{equation}
+
+Feynman's technique asks
+whether these two
+expressions are equal.
+
+In other words,
+
+\begin{equation}
+    \boxed{
+    D_\alpha(T_xf)
+    =
+    T_x(D_\alpha f).
+    }
+    \label{eq:operator_commutation}
+\end{equation}
+
+But this is exactly
+the statement of
+Leibniz's integral rule
+for fixed integration limits.
+
+Consequently, under
+the conditions established
+in the preceding section,
+the two operations can
+be performed in either
+order without changing
+the result.
+
+This provides an
+operator-theoretic
+interpretation of
+differentiation under
+the integral sign.
+
+\subsubsection*{The commutator}
+
+In linear algebra and
+operator theory, the
+\emph{commutator} of two
+operators $A$ and $B$
+acting on a common
+vector space is defined by
+
+\begin{equation}
+    [A,B]=AB-BA.
+    \label{eq:commutator_definition}
+\end{equation}
+
+The operators commute
+precisely when
+
+\[
+    [A,B]=0.
+\]
+
+We would therefore like
+to express Feynman's
+technique in the form
+
+\[
+    [D_\alpha,T_x]=0.
+\]
+
+There is a small technical
+point here.
+
+The integration operator
+defined in
+\eqref{eq:operator_T}
+maps a function of
+$(x,\alpha)$ to a function
+of $\alpha$ alone.
+
+Strictly speaking,
+$D_\alpha$ and $T_x$
+are therefore not both
+endomorphisms of the
+same function space.
+
+The precise mathematical
+statement is the identity
+\eqref{eq:operator_commutation},
+where differentiation acts
+on the appropriate space
+before or after integration.
+
+If we wish to use the
+ordinary commutator notation,
+we can regard the output
+of $T_x$ as a function
+that is constant in $x$.
+
+More explicitly, define
+
+\begin{equation}
+    (\widetilde{T}_x f)(x,\alpha)
+    =
+    \int_a^b f(t,\alpha)\,dt.
+    \label{eq:extended_integration_operator}
+\end{equation}
+
+Here $t$ is merely a
+dummy integration variable.
+
+Unlike the original
+integration operator,
+$\widetilde{T}_x$ maps
+functions of $(x,\alpha)$
+back into functions of
+$(x,\alpha)$.
+
+We can now form the
+commutator in the
+usual sense:
+
+\begin{equation}
+    [D_\alpha,\widetilde{T}_x]
+    =
+    D_\alpha\widetilde{T}_x
+    -
+    \widetilde{T}_xD_\alpha.
+    \label{eq:feynman_commutator}
+\end{equation}
+
+Under the hypotheses
+of Leibniz's rule,
+
+\begin{equation}
+    \boxed{
+    [D_\alpha,\widetilde{T}_x]f=0.
+    }
+    \label{eq:vanishing_commutator}
+\end{equation}
+
+Thus, on a suitable
+space of functions,
+the differentiation
+and fixed-interval
+integration operators
+commute.
+
+This is the operator
+identity underlying
+Feynman's technique.
+
+% -------------------------------------------------
+\subsection{A Finite-Dimensional Analogy}
+% -------------------------------------------------
+
+We can make the preceding
+discussion more intuitive
+by considering an analogous
+problem in ordinary
+linear algebra.
+
+Suppose that
+
+\[
+    v(\alpha)=
+    \begin{pmatrix}
+        v_1(\alpha)\\
+        v_2(\alpha)\\
+        \vdots\\
+        v_n(\alpha)
+    \end{pmatrix}
+\]
+
+is a differentiable
+vector-valued function.
+
+Let
+
+\[
+    w=
+    \begin{pmatrix}
+        w_1\\
+        w_2\\
+        \vdots\\
+        w_n
+    \end{pmatrix}
+\]
+
+be a fixed vector,
+independent of $\alpha$.
+
+Consider the scalar-valued
+function
+
+\[
+    F(\alpha)=w^Tv(\alpha).
+\]
+
+By the definition of
+matrix multiplication,
+
+\[
+    F(\alpha)
+    =
+    \sum_{i=1}^{n}
+    w_i v_i(\alpha).
+\]
+
+Differentiating with
+respect to $\alpha$,
+
+\begin{align}
+    F'(\alpha)
+    &=
+    \frac{d}{d\alpha}
+    \sum_{i=1}^{n}
+    w_i v_i(\alpha)
+    \notag\\
+    &=
+    \sum_{i=1}^{n}
+    w_i v_i'(\alpha)
+    \notag\\
+    &=
+    w^Tv'(\alpha).
+\end{align}
+
+Therefore,
+
+\begin{equation}
+    \boxed{
+    \frac{d}{d\alpha}
+    \bigl(w^Tv(\alpha)\bigr)
+    =
+    w^Tv'(\alpha).
+    }
+    \label{eq:finite_dimensional_analogy}
+\end{equation}
+
+Notice that differentiation
+can be performed before
+or after taking the
+weighted sum.
+
+Now recall that a definite
+integral can be approximated
+by a Riemann sum:
+
+\[
+    \int_a^b f(x,\alpha)\,dx
+    \approx
+    \sum_{i=1}^{n}
+    f(\xi_i,\alpha)\Delta x_i.
+\]
+
+This is precisely a
+weighted sum of the form
+
+\[
+    w^Tv(\alpha),
+\]
+
+where
+
+\[
+    w_i=\Delta x_i,
+    \qquad
+    v_i(\alpha)=f(\xi_i,\alpha).
+\]
+
+Since the weights
+$\Delta x_i$ are
+independent of $\alpha$,
+we can differentiate
+the finite sum
+componentwise.
+
+The passage from finite
+sums to integrals is
+what makes Feynman's
+technique a natural
+infinite-dimensional
+analogue of
+\eqref{eq:finite_dimensional_analogy}.
+
+However, unlike a finite
+sum, an integral involves
+a limiting process.
+
+Consequently, additional
+regularity conditions
+are needed to justify
+the interchange in the
+infinite-dimensional case.
+
+% -------------------------------------------------
+\subsection{Why Linearity Alone Is Not Sufficient}
+% -------------------------------------------------
+
+It is important to emphasize
+that the vanishing commutator
+does not follow merely from
+the linearity of the two
+operators.
+
+Indeed, even in ordinary
+linear algebra, two matrices
+$A$ and $B$ may both represent
+linear transformations
+without commuting:
+
+\[
+    AB\neq BA.
+\]
+
+Similarly, differentiation
+and integration are linear
+operations, but this fact
+alone does not establish
+that their order can
+always be interchanged.
+
+The equality
+
+\[
+    D_\alpha T_xf
+    =
+    T_xD_\alpha f
+\]
+
+must be justified by
+the properties of the
+function $f$ and the
+domain on which the
+operators act.
+
+For continuously
+differentiable integrands
+over fixed finite
+intervals, Leibniz's rule
+provides that justification.
+
+For improper integrals,
+additional convergence
+conditions are required.
+
+Furthermore, if the
+integration limits depend
+on the parameter, then
+Leibniz's general rule gives
+
+\begin{align}
+    &\frac{d}{d\alpha}
+    \int_{a(\alpha)}^{b(\alpha)}
+    f(x,\alpha)\,dx
+    \notag\\
+    &\quad-
+    \int_{a(\alpha)}^{b(\alpha)}
+    \frac{\partial f(x,\alpha)}
+         {\partial\alpha}\,dx
+    \notag\\
+    &=
+    f(b(\alpha),\alpha)b'(\alpha)
+    -
+    f(a(\alpha),\alpha)a'(\alpha).
+\end{align}
+
+Thus, additional boundary
+terms appear when the
+limits move with the
+parameter.
+
+The operator identity
+therefore has a precise
+domain of validity, and one should be careful before exploiting it in scientific computing.
+
+% -------------------------------------------------
+\subsection{Returning to Feynman's Technique}
+% -------------------------------------------------
+
+Let us briefly revisit
+the Gaussian integral
+from the operator perspective.
+
+Recall that
+
+\begin{equation}
+    G(\alpha)
+    =
+    \int_0^\infty
+    e^{-\alpha x^2}\,dx
+    =
+    \frac{\sqrt{\pi}}
+         {2\sqrt{\alpha}},
+    \qquad \alpha>0.
+\end{equation}
+
+Differentiating the
+explicit expression,
+
+\begin{equation}
+    G'(\alpha)
+    =
+    -\frac{\sqrt{\pi}}
+          {4\alpha^{3/2}}.
+\end{equation}
+
+On the other hand,
+differentiating under
+the integral sign,
+
+\begin{align}
+    G'(\alpha)
+    &=
+    \int_0^\infty
+    \frac{\partial}{\partial\alpha}
+    e^{-\alpha x^2}\,dx
+    \notag\\
+    &=
+    -\int_0^\infty
+    x^2e^{-\alpha x^2}\,dx.
+\end{align}
+
+Equating the two
+expressions gives
+
+\[
+    \int_0^\infty
+    x^2e^{-\alpha x^2}\,dx
+    =
+    \frac{\sqrt{\pi}}
+         {4\alpha^{3/2}}.
+\]
+
+At $\alpha=1$, we obtain
+
+\begin{equation}
+    \boxed{
+    \int_0^\infty
+    x^2e^{-x^2}\,dx
+    =
+    \frac{\sqrt{\pi}}{4}.
+    }
+\end{equation}
+
+In operator notation,
+the essential step was
+
+\[
+    D_\alpha(T_xf)
+    =
+    T_x(D_\alpha f),
+\]
+
+where
+
+\[
+    f(x,\alpha)=e^{-\alpha x^2}.
+\]
+
+The two operators
+produced the same result,
+but one order of
+calculation was much
+more useful than
+the other.
+
+This is precisely
+the computational
+advantage exploited
+by Feynman's technique.
+
+
+
+
+
+
+
+% =================================================
+\section{Conclusion}
+% =================================================
+
+In this note, we have explored Feynman's
+technique of parametric integration,
+beginning with its computational applications
+and concluding with its mathematical
+justification.
+
+We first considered several examples
+involving Gaussian, trigonometric, and
+logarithmic integrals. In each case,
+the essential idea was to introduce
+or exploit a parameter whose
+differentiation simplifies the
+original integrand.
+
+The Gaussian integrals illustrated
+how repeated differentiation
+generates powers of the integration
+variable and naturally leads to
+ordinary and double factorials.
+The Dirichlet integral demonstrated
+how exponential damping can
+transform a difficult oscillatory
+integral into an elementary one.
+Finally, the logarithmic integral
+showed how differentiation can
+eliminate an otherwise troublesome
+logarithmic denominator.
+
+Having developed the computational
+method, we investigated why
+differentiation and integration
+can sometimes be interchanged.
+Starting from the Riemann-sum
+interpretation of integration,
+we were led to Leibniz's
+integral rule, which provides
+a rigorous mathematical
+foundation for the technique.
+
+We then examined the method
+from the perspective of
+linear algebra and operator
+theory. By regarding
+differentiation and integration
+as linear operators acting
+on suitable spaces of functions,
+we interpreted Leibniz's rule
+as a commutation relation.
+
+In particular, under appropriate
+regularity and convergence
+conditions, we have
+
+\begin{equation}
+    D_\alpha T_x f
+    =
+    T_x D_\alpha f.
+\end{equation}
+
+Equivalently, using the
+extended integration operator
+introduced earlier, the
+corresponding commutator
+vanishes:
+
+\begin{equation}
+    \boxed{
+    [D_\alpha,\widetilde{T}_x]f=0.
+    }
+\end{equation}
+
+It is important to remember,
+however, that this relation
+does not hold for arbitrary
+functions. Its validity
+depends on the mathematical
+conditions governing the
+interchange of differentiation
+and integration.
+
+The broader lesson is that
+many difficult mathematical
+problems become simpler when
+we recognize the underlying
+structure of the operations
+involved. Rather than
+evaluating an integral
+directly, Feynman's technique
+allows us to embed it in
+a family of integrals
+whose dependence on a
+parameter is easier
+to investigate.
+
+Thus, what initially appears
+to be a clever computational
+trick is, in fact, an
+application of a deeper
+principle from mathematical
+analysis and operator theory.
+
+The technique illustrates
+an important theme in
+mathematics: understanding
+when and why operations
+can be interchanged is
+often just as valuable
+as knowing how to
+perform them.
+
+
+% =================================================
+\begin{thebibliography}{9}
+% =================================================
+
+
+
+\bibitem{rudin}
+Walter Rudin,
+\textit{Principles of Mathematical Analysis},
+3rd edition,
+McGraw-Hill, 1976.
+
+
+\bibitem{boas}
+Mary L. Boas,
+\textit{Mathematical Methods in the Physical Sciences},
+3rd edition,
+John Wiley \& Sons, 2005.
+
+
+\bibitem{freericks}
+James K. Freericks,
+\textit{Math Methods: Physics 155},
+YouTube lecture series.
+Available at:
+\url{https://www.youtube.com/playlist?list=PLxyBMSdBhYxMsgxc2t83yyc3g6AM8GY6D}.
+
+
+\end{thebibliography}
+
+\end{document}
+
+\end{document}
